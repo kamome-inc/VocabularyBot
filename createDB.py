@@ -12,13 +12,13 @@ cur.execute("""
 """)
 
 cur.execute("""
-        Insert INTO Words (RusWord, EngWord, IsRusToEng) VALUES 
-        ('слово','word',1),
-        ('пробел','space',1),
-        ('кнопка','button',1),
-        ('таблица','table',0),
-        ('строка','string',0),
-        ('запрос','request',0)
+        Insert INTO Words (RusWord, EngWord, Comment, IsRusToEng) VALUES 
+        ('слово1','word1',"",1),
+        ('слово2','word2',"",1),
+        ('слово3','word3',"",1),
+        ('слово4','word4',"",1),
+        ('слово5','word5',"",1)
+        
         ;
 """)
 conn.commit()
