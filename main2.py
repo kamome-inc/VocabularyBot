@@ -1,6 +1,15 @@
 import sqlite3
+import aiogram
+import logging
+from aiogram import Bot, Dispatcher, executor, types
 
 DataBaseName = 'firsttest.db'
+
+
+
+bot = Bot(token="1171530088:AAEY9EXzFxBXZm4_Bymzm18hYpm8KZjnpx8")
+dp = Dispatcher(bot)
+logging.basicConfig(level=logging.INFO)
 
 
 class Word(object):
@@ -67,7 +76,20 @@ def get_words_from_db():
     return out
 
 
-a = get_words_from_db()
+@dp.message_handler(commands="start")
+async def cmd_start(message: types.Message):
+    keyboard = types.ReplyKeyboardMarkup()
+    button_1 = types.KeyboardButton(text="/Добавить слово")
+    keyboard.add(button_1)
+    button_2 = types.KeyboardButton(text="/Просмотреть слова")
+    keyboard.add(button_2)
+    await message.answer('Добро пожаловать в словарь! Вам доступны следующие функции:', reply_markup=keyboard)
 
-for word in a:
-    print(word.get_word())
+#bot.send_message(1146840023, " hello world! ")
+
+
+
+
+if __name__ == "__main__":
+    # Запуск бота
+    executor.start_polling(dp, skip_updates=True)
