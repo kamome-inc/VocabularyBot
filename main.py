@@ -1,25 +1,12 @@
-import logging
-from aiogram import Bot, Dispatcher, executor, types
+def a_decorator_passing_arguments(function_to_decorate):
+    def a_wrapper_accepting_arguments(arg1, arg2):
+        print("Смотри, что я получил:", arg1, arg2)
+        function_to_decorate(arg1, arg2)
+    return a_wrapper_accepting_arguments
 
 
+@a_decorator_passing_arguments
+def print_full_name(first_name, last_name):
+    print("Меня зовут", first_name, last_name)
 
-bot = Bot(token="1171530088:AAEY9EXzFxBXZm4_Bymzm18hYpm8KZjnpx8")
-dp = Dispatcher(bot)
-logging.basicConfig(level=logging.INFO)
-
-
-@dp.message_handler(commands="start")
-async def cmd_start(message: types.Message):
-    keyboard = types.ReplyKeyboardMarkup()
-    button_1 = types.KeyboardButton(text="С пюрешкой")
-    keyboard.add(button_1)
-    await message.answer('123', reply_markup=keyboard)
-
-#bot.send_message(1146840023, " hello world! ")
-
-
-
-
-if __name__ == "__main__":
-    # Запуск бота
-    executor.start_polling(dp, skip_updates=True)
+print_full_name("1","2")

@@ -1,9 +1,18 @@
 import sqlite3
-conn = sqlite3.connect('firsttest.db')
+import os
+dbname = 'firsttest.db'
+
+if os.path.isfile(dbname):
+    os.remove(dbname)
+    print("success")
+else:
+    print("File doesn't exists!")
+
+conn = sqlite3.connect(dbname)
 cur = conn.cursor()
 
 cur.execute("""
-            Create Table Words (
+            Create Table Word (
             id integer primary key AUTOINCREMENT,
             RusWord text,
             EngWord text,
@@ -12,7 +21,17 @@ cur.execute("""
 """)
 
 cur.execute("""
-        Insert INTO Words (RusWord, EngWord, Comment, IsRusToEng) VALUES 
+            create table User (
+            Id integer primary key,
+            FirstName text,
+            LastName text,
+            UserName text);
+""")
+
+
+
+cur.execute("""
+        Insert INTO Word (RusWord, EngWord, Comment, IsRusToEng) VALUES 
         ('слово1','word1',"",1),
         ('слово2','word2',"",1),
         ('слово3','word3',"",1),
@@ -24,7 +43,7 @@ cur.execute("""
 conn.commit()
 
 
-cur.execute("Select * from Words")
+cur.execute("Select * from Word")
 one_result = cur.fetchall()
 print(one_result)
 for t in one_result:
